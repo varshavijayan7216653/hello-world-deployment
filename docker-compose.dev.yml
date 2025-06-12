@@ -1,0 +1,7 @@
+services:
+  backend:
+    environment:
+      - FLASK_ENV=development
+  frontend:
+    environment:
+      - NGINX_HOST=dev.local

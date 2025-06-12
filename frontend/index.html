@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello World Frontend</title>
+  </head>
+  <body>
+    <h1>Hello World from Frontend!</h1>
+    <div id="backend"></div>
+    <script>
+      fetch('/api')
+        .then(res => res.text())
+        .then(data => document.getElementById('backend').innerText = data)
+        .catch(() => document.getElementById('backend').innerText = 'Backend not reachable');
+    </script>
+  </body>
+</html>
