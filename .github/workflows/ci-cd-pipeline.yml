@@ -1,25 +1,30 @@
-name: CI Pipeline
+name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
-  build:
+  build-test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Build Docker Image
-        run: docker build -t hello-world .
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-  test:
+      - name: Build Backend Image
+        run: docker build -t backend ./backend
+
+      - name: Build Frontend Image
+        run: docker build -t frontend ./frontend
+
+  deploy:
+    needs: build-test
     runs-on: ubuntu-latest
-    needs: build
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-
-      - name: Run Simple Test
-        run: echo "All tests passed!"
+      - name: Deploy (placeholder)
+        run: echo "Deploy step here (e.g., SSH to VM and run docker-compose up)"
